@@ -375,6 +375,36 @@ nav button.active {
 .monitor-table tr:last-child td { border-bottom:none; }
 .monitor-table tr:hover td { background:var(--bg3); }
 
+
+
+/* ── MOBILE TABLE HELPERS ── */
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.table-scroll table {
+  min-width: 820px;
+}
+.phase-table td, .compare-table td, .threat-table td, .monitor-table td,
+.phase-table th, .compare-table th, .threat-table th, .monitor-table th {
+  word-break: keep-all;
+  white-space: normal;
+}
+.phase-table td:last-child,
+.compare-table td:last-child,
+.threat-table td:last-child,
+.monitor-table td:last-child {
+  min-width: 260px;
+}
+.phase-table th:nth-child(1), .phase-table td:nth-child(1) { min-width: 110px; }
+.phase-table th:nth-child(2), .phase-table td:nth-child(2) { min-width: 170px; }
+.phase-table th:nth-child(3), .phase-table td:nth-child(3) { min-width: 110px; }
+.phase-table th:nth-child(4), .phase-table td:nth-child(4) { min-width: 110px; }
+.phase-table th:nth-child(5), .phase-table td:nth-child(5) { min-width: 300px; }
+
 /* ── REPORT BANNER ── */
 .report-banner {
   background: linear-gradient(135deg, #C8000A 0%, #7A0008 100%);
@@ -419,8 +449,9 @@ nav button.active {
   .meta-chips { display: none; }
   .report-tag { display: none; }
   .header-divider { display: none; }
-  .header-nav { gap: 0; padding: 3px 0; }
-  nav button { padding: 4px 10px; font-size: 11px; }
+  .header-nav { gap: 0; padding: 4px 0 2px; }
+  nav { display:flex; width:max-content; }
+  nav button { padding: 6px 10px; font-size: 11px; }
 
   /* Main wrap */
   .wrap { padding: 16px 14px 48px; }
@@ -432,7 +463,7 @@ nav button.active {
   .sentiment-cols { flex-direction: column !important; }
 
   /* Cards */
-  .card { padding: 16px 14px; }
+  .card { padding: 14px 12px; overflow:hidden; }
   .report-banner { padding: 16px 16px !important; flex-direction: column !important; gap: 10px; }
   .rb-meta { text-align: left !important; font-size: 11px !important; }
   .rb-title { font-size: 16px !important; }
@@ -456,12 +487,26 @@ nav button.active {
   .resp-grid-2 { grid-template-columns: 1fr !important; }
   .resp-flex-row { flex-direction: column !important; }
 
-  /* Tables → scrollable */
+  /* Tables → scrollable with minimum width to avoid squeezed vertical text */
+  .table-scroll {
+    margin: 0 -2px;
+    padding-bottom: 2px;
+  }
+  .table-scroll table {
+    width: max-content;
+    min-width: 780px;
+  }
   .phase-table, .compare-table, .threat-table, .monitor-table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     font-size: 11px !important;
+  }
+  .phase-table th, .phase-table td,
+  .compare-table th, .compare-table td,
+  .threat-table th, .threat-table td,
+  .monitor-table th, .monitor-table td {
+    padding: 9px 10px !important;
+    white-space: normal !important;
+    word-break: keep-all !important;
+    writing-mode: horizontal-tb !important;
   }
 
   /* Bar comparison chart in benchmark section */
@@ -525,6 +570,7 @@ nav button.active {
   .kv-grid { grid-template-columns: 1fr !important; }
   nav button { padding: 4px 8px; font-size: 10px; }
   .wrap { padding: 12px 10px 40px; }
+  .table-scroll table { min-width: 720px; }
 }
 
 /* ── INFO BOX ── */
@@ -791,7 +837,7 @@ nav button.active {
 
   <div class="card mb24">
     <div class="section-label mb16">数据来源 · Steam在线曲线 + VG Insights销量曲线 + 实测PCU（截至3月22日）</div>
-    <table class="phase-table">
+    <div class="table-scroll"><table class="phase-table">
       <thead>
         <tr>
           <th>阶段</th>
@@ -824,7 +870,7 @@ nav button.active {
           <td style="font-size:12px;color:var(--text-dim);line-height:1.6;">日PCU逐日下滑：峰值899→约750→约650→约550，已由三国杀一将成名当前（Steam端）的½跌至⅓；在线曲线呈「每日脉冲波」，说明有一定但不稳定的活跃用户；首发冲量衰减形态</td>
         </tr>
       </tbody>
-    </table>
+    </table></div></div></div></div>
     <div class="info-box mb16 mt16" style="background:#FFF8E6;border-color:#B07820;margin-top:16px;">
       <span style="font-weight:700;color:#B07820;">⚠️ 战略判断：</span>名将杀Steam端首周体量较小，在线人数持续走低，当前尚不构成规模级竞争威胁。但「特别好评」标签代表的口碑势能与玩家情绪资产，是其最值得长期警惕的竞争资本。
     </div>
@@ -1704,7 +1750,7 @@ nav button.active {
 
   <div class="card mb8">
     <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px;">建议每月追踪以下指标，均来自可观测的公开数据源，用于判断名将杀威胁等级是否需要升级</div>
-    <table class="monitor-table">
+    <div class="table-scroll"><table class="monitor-table">
       <thead>
         <tr>
           <th>监控指标</th>
